@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import KclEditor from "@/components/KclEditor";
 import DiffPanel from "@/components/DiffPanel";
 import PreviewViewport from "@/components/PreviewViewport";
-import { runDiff } from "@/lib/wasm";
+import { runDiff } from "@/lib/api";
 import type { DiffReport } from "@/lib/types";
 
 export default function Home() {
