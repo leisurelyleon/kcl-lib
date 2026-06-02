@@ -141,3 +141,15 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Rust
+/target
+**/target
+Cargo.lock        # keep this line ONLY because kcl-diff is a lib+app workspace; we'll discuss
+
+# WASM build output
+web/lib/pkg/
+*.wasm
+
+# Vercel
+.vercel
