@@ -1,0 +1,6 @@
+// Mounting bracket — v1
+width = 100
+height = 50
+thickness = 5
+holeRadius = 4
+holeSpacing = 80
