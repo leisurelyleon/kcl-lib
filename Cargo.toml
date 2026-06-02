@@ -1,3 +1,3 @@
 [workspace]
 resolver = "2"
-members = ["crates/kcl-diff-core"]
+members = ["crates/kcl-diff-core", "crates/kcl-diff-server"]
