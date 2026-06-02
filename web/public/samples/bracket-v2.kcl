@@ -1,0 +1,7 @@
+// Mounting bracket — v2 (wider, thicker, with a fillet)
+width = 120
+height = 50
+thickness = 6
+holeRadius = 4
+holeSpacing = 80
+filletRadius = 2
