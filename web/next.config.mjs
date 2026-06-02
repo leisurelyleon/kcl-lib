@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
+
+// Where the kcl-diff service lives. Local dev defaults to the :8080 server;
+// in production set DIFF_API_URL to the deployed Rust host.
+const DIFF_API_URL = process.env.DIFF_API_URL || "http://localhost:8080";
+
 const nextConfig = {
-  webpack(config) {
-    // Enable the WebAssembly produced by wasm-pack (output: web/lib/pkg).
-    config.experiments = { ...config.experiments, asyncWebAssembly: true };
-    return config;
+  async rewrites() {
+    return [{ source: "/api/diff", destination: `${DIFF_API_URL}/diff` }];
   },
 };
 
