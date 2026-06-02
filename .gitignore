@@ -145,11 +145,22 @@ vite.config.ts.timestamp-*
 # Rust
 /target
 **/target
-Cargo.lock        # keep this line ONLY because kcl-diff is a lib+app workspace; we'll discuss
+Cargo.lock        
 
 # WASM build output
 web/lib/pkg/
 *.wasm
 
 # Vercel
+.vercel
+
+# --- Rust ---
+/target
+
+# --- Next.js (web/) ---
+web/.next/
+web/out/
+web/next-env.d.ts
+
+# --- Vercel ---
 .vercel
