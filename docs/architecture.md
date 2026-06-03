@@ -38,6 +38,10 @@ The engine runs as a **native Rust service** (`crates/kcl-diff-server`) exposing
 configurable per environment. (In-browser WASM was the original plan; it isn't
 viable for the published `kcl-lib` — see ADR 0004.)
 
+```text
+| crates/kcl-diff-server | Axum HTTP service exposing POST /diff |
+```
+
 ## Optional 3D preview
 
 A true 3D render comes from Zoo's hosted geometry engine (a video stream over
