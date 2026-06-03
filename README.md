@@ -12,30 +12,32 @@ Formatting and whitespace are ignored.
   so the grammar is always correct and tracks upstream KCL. (ADR 0001)
 - **AST-level, version-resilient diff.** It diffs the serialized AST and
   normalizes away source positions, so it depends only on stable public API. (ADR 0002)
-- **Runs in the browser via WebAssembly** — the same client-side Rust/WASM model
-  Zoo's Design Studio uses. The deployed demo needs no backend.
+- **Native engine, thin web frontend.** The diff engine runs as a small native
+  Rust service; the Next.js frontend calls it. (Building `kcl-lib` to in-browser
+  WASM isn't possible outside Zoo's monorepo — see ADR 0004.)
 
 ## Layout
 
-| Path                   | What it is                                   |
-|------------------------|----------------------------------------------|
-| `crates/kcl-diff-core` | Rust diff engine (native + WASM)             |
-| `web/`                 | Next.js frontend                             |
-| `docs/`                | Architecture + ADRs                          |
+| Path                     | What it is                              |
+|--------------------------|-----------------------------------------|
+| `crates/kcl-diff-core`   | Rust diff engine (library)              |
+| `crates/kcl-diff-server` | Axum HTTP service exposing `POST /diff` |
+| `web/`                   | Next.js frontend                        |
+| `docs/`                  | Architecture + ADRs                     |
 
 ## Develop
 
 Prerequisites: Rust (via `rustup`) and Node 20+. (A `.devcontainer` ships both.)
 
 ```bash
-# Engine: build + test (native)
-cargo build
-cargo test
+# Engine: build + test
+cargo build --workspace
+cargo test --workspace
 
-# Engine: build to WebAssembly for the frontend
-./scripts/build-wasm.sh
+# Run the diff service (listens on :8080)
+cargo run -p kcl-diff-server
 
-# Frontend
+# In another terminal: run the frontend (proxies /api/diff -> :8080)
 cd web
 npm install
 npm run dev      # http://localhost:3000
@@ -43,13 +45,15 @@ npm run dev      # http://localhost:3000
 
 ## Deploy
 
-Deployed on Vercel with **Root Directory = `web`**. The generated WASM package
-(`web/lib/pkg/`) is committed, so Vercel builds the frontend with a Node
-toolchain only — no Rust required in the deploy pipeline.
+- **Frontend** -> Vercel, Root Directory = `web`. Set `DIFF_API_URL` to the
+  deployed service URL; the `/api/diff` rewrite proxies to it.
+- **Service** -> any Rust-friendly host (e.g. Fly.io or Shuttle) running
+  `kcl-diff-server`.
 
 ## Status
 
 - [x] Semantic diff engine (native, tested)
-- [ ] WASM build verified
-- [ ] Live Vercel demo
+- [x] HTTP service over the engine
+- [ ] Live frontend wired to the service
+- [ ] Deployed demo (Vercel + Rust host)
 - [ ] Optional token-gated 3D preview (ADR 0003)
