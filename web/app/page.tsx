@@ -52,7 +52,7 @@ export default function Home() {
         <h1>kcl-diff</h1>
         <p>
           Semantic diff for KCL, powered by Zoo&apos;s own <code>kcl-lib</code> parser
-          compiled to WebAssembly. The two models below are compared structurally —
+          powered by Zoo's own kcl-lib parser. The two models below are compared structurally —
           formatting and whitespace are ignored.
         </p>
       </header>
