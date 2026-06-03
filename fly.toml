@@ -1,0 +1,16 @@
+app = "kcl-diff-leisurelyleon"   # must be globally unique — change "yourname"
+primary_region = "sjc"      # San Jose — closest to you in Modesto
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"    # sleeps when idle -> stays free
+  auto_start_machines = true     # wakes on the next request
+  min_machines_running = 0
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
