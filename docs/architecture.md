@@ -32,9 +32,11 @@ new.kcl ─┘                               ├─▶ diff ─▶ DiffReport
 | `crates/kcl-diff-core` | Rust diff engine; compiles to native + WASM       |
 | `web/`                 | Next.js frontend; runs the engine via WebAssembly |
 
-The engine runs **client-side in WebAssembly** — the same way Zoo's own Design
-Studio runs KCL (a TypeScript frontend over a Rust/WASM core). The deployed demo
-needs no backend for its core feature.
+The engine runs as a **native Rust service** (`crates/kcl-diff-server`) exposing
+`POST /diff`. The Next.js frontend calls it through a same-origin rewrite
+(`/api/diff` -> the service), avoiding CORS and keeping the server URL
+configurable per environment. (In-browser WASM was the original plan; it isn't
+viable for the published `kcl-lib` — see ADR 0004.)
 
 ## Optional 3D preview
 
