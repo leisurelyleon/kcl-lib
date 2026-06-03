@@ -54,6 +54,6 @@ npm run dev      # http://localhost:3000
 
 - [x] Semantic diff engine (native, tested)
 - [x] HTTP service over the engine
-- [ ] Live frontend wired to the service
-- [ ] Deployed demo (Vercel + Rust host)
-- [ ] Optional token-gated 3D preview (ADR 0003)
+- [x] Live frontend wired to the service
+- [x] Deployed demo (Vercel + Rust host)
+- [x] Optional token-gated 3D preview (ADR 0003)
