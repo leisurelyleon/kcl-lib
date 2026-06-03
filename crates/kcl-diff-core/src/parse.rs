@@ -24,11 +24,10 @@ pub(crate) struct ParsedModule {
 pub(crate) fn parse_module(src: &str, label: &str) -> Result<ParsedModule, DiffError> {
     // `Program::parse` -> (Option<Program>, Vec<CompilationIssue>).
     // A `None` program means parsing failed fatally.
-    let (maybe_program, issues) =
-        kcl_lib::Program::parse(src).map_err(|e| DiffError::Parse {
-            label: label.to_string(),
-            message: format!("{e:?}"),
-        })?;
+    let (maybe_program, issues) = kcl_lib::Program::parse(src).map_err(|e| DiffError::Parse {
+        label: label.to_string(),
+        message: format!("{e:?}"),
+    })?;
 
     let program = maybe_program.ok_or_else(|| DiffError::Parse {
         label: label.to_string(),
