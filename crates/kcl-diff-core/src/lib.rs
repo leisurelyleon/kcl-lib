@@ -10,9 +10,6 @@ mod diff;
 mod parse;
 mod report;
 
-#[cfg(feature = "wasm")]
-mod wasm;
-
 pub use diff::diff;
 pub use report::{ChangeKind, DiffEntry, DiffReport};
 
